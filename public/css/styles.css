@@ -1,6 +1,69 @@
-/******* Change Box Model ***************/
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gravitas+One&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+/*Header*/
+header {
+    font-family: 'Gravitas One', serif;
+    color: navy;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+}
+/*Navigation*/
+nav {
+    background-color: navy;
+    padding: 10px;
+    text-align: center;
+}
+nav a {
+    font-family: 'Raleway', sans-serif;
+    color:aliceblue;
+    &:hover {
+        color: lightgray;
+    }
+}/*Main Content*/
+.hero img{
+    width: 100%;
+    height: auto;
+}
+.hero-text {
+    position: absolute;
+    color: navy;
+    background-color: rgba(255, 255, 255, 0.5);
+    font-size: 2em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    text-align: justify;
+}
+.reviews {
+    font-family: 'Raleway', sans-serif;
+    margin: 20px;
+    padding: 20px;
+    color: grey;
+}
+.cards {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+#card {
+  display: flex;
+    text-align: center;
+    text-decoration: underline;
+}
+#card img {
+    width: 50px;
+    height: auto;
+    padding: 10px, 50px;
+    border: 1px solid lightgray;
+    background-color: gray;
+}
+
+@media screen and (min-width: 768px) {
+main {
+    background-image: url('../images/checkerboard.png');
+    background-size: cover;
+    background-attachment: fixed;
+}
+  
 }
