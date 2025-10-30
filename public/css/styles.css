@@ -4,20 +4,29 @@
 /*Header*/
 header {
     font-family: 'Gravitas One', serif;
-    color: navy;
     padding: 20px 0;
     display: flex;
     justify-content: space-between;
-    text-decoration: none;
-    text-decoration-line: none;
 }
-.siteName {
+#top-header {
+    text-decoration-line: none;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.siteName a{
     font-size: 2em;
     margin-left: 20px;
+    text-decoration-line: none;
+    color: #C1121F;
+}
+#tools a {
+    text-decoration-line: none;
+    color: #C1121F;
 }
 /*Navigation*/
 nav {
-    background-color: navy;
+    background-color: #003049;
     padding: 10px;
 }
 nav ul {
@@ -32,7 +41,7 @@ nav a {
     color:aliceblue;
     text-decoration: none;
     &:hover {
-        color: lightgray;
+        color: #669BBC;
     }
 }/*Main Content*/
 #hero {
@@ -45,7 +54,7 @@ nav a {
     margin: 0 auto;
 }
 #hero-text {
-    color: navy;
+    color: #003049;
     background-color: rgba(255, 255, 255, 0.5);
     font-size: 1em;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
@@ -73,6 +82,7 @@ nav a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: #003049;
     text-align: center;
     text-decoration: underline;
 }
@@ -82,9 +92,9 @@ nav a {
 
 .card img {
     height: 70px;
-    padding: 10px 70px 0px 70px;
-    border: 1px solid lightgray;
-    background-color: gray;
+    padding: 15px 80px 0px 80px;
+    border: 1px solid #780000;
+    background-color: #C1121F;
 }
 #reviews {
     font-size: 1.2em;
@@ -93,8 +103,17 @@ nav a {
     margin-bottom: 10px;
     padding-bottom: 10px;
 }
+h1, h2 {
+    font-family: 'Gravitas One', serif;
+    color: #780000;
+}
+p, li {
+    font-family: 'Raleway', sans-serif;
+    color: #003049;
+    line-height: 1.6;
+}
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 800px) {
  body{
     background-image: url('/images/site/small_check.jpg');
     background-size: cover;
@@ -102,7 +121,7 @@ nav a {
   }
   #wrapper {
     background-color: white;
-    border: 4px solid navy;
+    border: 4px solid #780000;
     border-radius: 30px;
     width: 85%;
     margin: 0 auto;
