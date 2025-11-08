@@ -243,7 +243,7 @@ VALUES   (
 --Update the GM Hummer description
 UPDATE public.inventory
 SET inv_description = REPLACE(inv_description, 'small interiors', 'huge interiors')
-	WHERE inv_id = 10
+	WHERE inv_id = 10;
 
 -- Update all records in the inventory to add /vehicles in image paths
 UPDATE public.inventory
