@@ -112,7 +112,34 @@ p, li {
     color: #003049;
     line-height: 1.6;
 }
+#inv-display {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: auto;
 
+    & li {
+        margin-bottom: 15px;
+        color: #003049;
+        border: 1px solid #780000;
+    }
+    & a {
+        text-decoration: none;
+        color:#003049;
+        margin: 0 auto;
+    }
+    & img {
+        display: block;
+        margin: 0 auto;
+        padding: 5px;
+    }
+    & h2 {
+        margin: 0 auto;
+    }
+    & span {
+        font-weight: bold;
+        margin: 0 auto;
+    }
+}
 @media screen and (min-width: 800px) {
  body{
     background-image: url('/images/site/small_check.jpg');
