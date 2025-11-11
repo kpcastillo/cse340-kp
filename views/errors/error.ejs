@@ -1,0 +1,11 @@
+<%# Content heading %>
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect(404)
+} %>
+<%# Display error message %>
+<p><%= message %></p>
+<div class="error-img">
+  <img src="/images/site/error-img.jpeg" alt="Funny 404 image">
+</div>
