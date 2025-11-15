@@ -63,20 +63,19 @@ Util.buildClassificationGrid = async function(data){
  * ************************************ */
 Util.buildInvItemView = async function(data){
   let itemView
-  if (data.length > 0) {
-    itemView = '<div id="inv-detail-display">'
-    itemView += '<div class="inv-image">'
+  if (data) {
+    itemView = '<div id="item-display">'
+    itemView += '<div class="item-image">'
     itemView += '<img src="' + data.inv_image + '" alt="Image of ' + data.inv_make + ' ' 
     + data.inv_model + ' on CSE Motors" />'
     itemView += '</div>'
-    itemView += '<div class="inv-info">'
-    itemView += '<h2>' + data.inv_make + ' ' + data.inv_model + '</h2>'
-    itemView += '<hr />'
-    itemView += '<p><strong>Price: </strong>$' 
+    itemView += '<div class="item-info">'
+    //itemView += '<h2>' + data.inv_make + ' ' + data.inv_model + '</h2>'
+    itemView += '<p>Price: $' 
     + new Intl.NumberFormat('en-US').format(data.inv_price) + '</p>'
-    itemView += '<p><strong>Description: </strong>' + data.inv_description + '</p>'
-    itemView += '<p><strong>Color: </strong>' + data.inv_color + '</p>'
-    itemView += '<p><strong>Miles: </strong>' 
+    itemView += '<p>Description: ' + data.inv_description + '</p>'
+    itemView += '<p>Color: ' + data.inv_color + '</p>'
+    itemView += '<p>Miles: ' 
     + new Intl.NumberFormat('en-US').format(data.inv_miles) + '</p>'
     itemView += '</div>'
     itemView += '</div>'

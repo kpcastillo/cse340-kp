@@ -27,15 +27,18 @@ app.set("layout", "./layouts/layout") // not at views root
 /* ***********************
  * Routes
  *************************/
-app.use(static)
+app.use(utilities.handleErrors(static))
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 // Inventory routes
-app.use("/inv", inventoryRoute)
+app.use("/inv", utilities.handleErrors(inventoryRoute))
+// Error route for assignment
+app.get("/error", utilities.handleErrors(baseController.errorForAssignment))
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, that page you are looking for has driven away.'})
 })
+
 
 /* ***********************
 * Express Error Handler
