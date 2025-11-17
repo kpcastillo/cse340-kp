@@ -1,0 +1,21 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect(404)
+} %>
+<%- messages() %>
+<form id="register-form">
+    <label for="first_name" >First Name</label>
+    <input type="text" name="account_firstName" required>
+    <br>
+    <label for="last_name">Last Name</label>
+    <input type="text" name="account_lastName" required>
+    <br>
+    <label for="email">Email address</label>
+    <input type="email" name="account_email" required>
+    <br>
+    <label for="password">Password</label>
+    <input type="password" pattern="(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{12,}" title="Password must be at least 12 characters long and include at least 1 uppercase letter, 1 number, and 1 special character." name="account_password" required>
+    <br>
+    <button type="submit" id="register-button">Register</button>
+</form>
