@@ -152,6 +152,38 @@ p, li {
     border-radius: 5px;
     display: block;
 }
+#login-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 0 auto;
+    background-color: #669BBC;
+    padding: 20px;
+    border-radius: 10px;
+    border: #003049 2px solid;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #003049;
+    font-family: 'Gravitas One', serif;
+    & input {
+        padding: 10px;
+        font-size: 1em;
+        border-radius: 5px;
+        border: 1px solid #780000;
+    }
+    & button {
+        padding: 10px;
+        font-size: 1.2em;
+        border-radius: 5px;
+        border: none;
+        background-color: #C1121F;
+        color: white;
+        cursor: pointer;
+        &:hover {
+            background-color: #780000;
+        }
+    }
+}
 @media screen and (min-width: 800px) {
  body{
     background-image: url('/images/site/small_check.jpg');
