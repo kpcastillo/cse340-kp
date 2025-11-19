@@ -14,8 +14,9 @@
     <label for="email">Email address</label>
     <input type="email" name="account_email" required>
     <br>
+    <span class="psswd-req">Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
     <label for="password">Password</label>
-    <input type="password" pattern="(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{12,}" title="Password must be at least 12 characters long and include at least 1 uppercase letter, 1 number, and 1 special character." name="account_password" required>
+    <input type="password" pattern="(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{12,}" name="account_password" required>
     <br>
     <button type="submit" id="register-button">Register</button>
 </form>
