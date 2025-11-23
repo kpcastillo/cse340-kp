@@ -184,7 +184,7 @@ p, li {
         }
     }
 }
-#register-form {
+.forms {
     display: flex;
     flex-direction: column;
     width: 400px;

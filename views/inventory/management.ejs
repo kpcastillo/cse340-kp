@@ -1,0 +1,19 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+<%- messages() %>
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+<p>Use the links below to manage inventory classifications and items or add new ones.</p>
+
+<%# Links to new classification %>
+<p><a href="/inv/add-classification">Add New Classification</a></p>
+<%# Links to new inventory item %>
+<p><a href="/inv/add-inventory">Add New Inventory Item</a></p>

@@ -1,0 +1,19 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+<%- messages() %>
+<% if (errors && errors.length) { %>
+  <ul class="notice">
+    <% errors.forEach(error => { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
+<form class="forms" action="/inv/add-classification" method="POST">
+  <span>Field is required</span>
+  <label for="classification_name">Classification Name:</label>
+  <span class="psswd-req">Classification names cannot contain a space and must be alphanumeric.</span>
+  <input type="text" name="classification_name" value="<%= locals.classification_name %>" pattern="^[A-Za-z0-9]+$" required>
+  <button type="submit">Add Classification</button>
