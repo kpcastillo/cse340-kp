@@ -27,7 +27,15 @@ router.post(
 );
 
 //Route to build add inventory item view
-//router.get("/add-inventory", invController.buildAddInventoryView);
+router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventoryView));
+
+//Process add inventory item data
+router.post(
+  "/add-inventory",
+  invValidate.inventoryRules(),
+  invValidate.checkInventoryData,
+  utilities.handleErrors(invController.addInventoryItem)
+);
 
 module.exports = router;
 

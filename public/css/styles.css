@@ -225,6 +225,24 @@ p, li {
     color: #003049;
     margin-bottom: 10px;
 }
+#inv_description {
+    border-radius: 5px;
+    font-size: 1em;
+    padding: 10px;
+}
+#classificationList {
+    padding: 25px;
+    gap: 10px;
+    justify-content: center;
+    font-family: Railway, sans-serif;
+    font-size: 1.2em;
+    width: max-content;
+    margin: 0 auto;
+    & option {
+        color: #003049;
+        font-weight: bold;
+    }
+}
 @media screen and (min-width: 800px) {
  body{
     background-image: url('/images/site/small_check.jpg');
