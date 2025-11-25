@@ -4,12 +4,12 @@
   res.redirect(404)
 } %>
 <%- messages() %>
-<% if (errors) { %>
-  <ul class="notice">
- <% errors.array().forEach(error => { %>
+  <% if (errors) { %>
+    <ul class="notice">
+  <% errors.array().forEach(error => { %>
    <li><%= error.msg %></li>
-<%  }) %>
- </ul>
+  <%  }) %>
+  </ul>
 <% } %>
 <form id="register-form" class="forms" action="/account/register" method="post">
     <label for="first_name" >First Name</label>

@@ -17,6 +17,7 @@ const session = require("express-session")
 const pool = require('./database/')
 const accountRoute = require("./routes/accountRoute")
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 /* ***********************
  * Middleware
@@ -42,6 +43,9 @@ app.use(function(req, res, next){
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
+// Cookie Parser Middleware
+app.use(cookieParser())
+
 /* ***********************
  * View engines and templates
  *************************/
@@ -64,7 +68,7 @@ app.use("/account", utilities.handleErrors(accountRoute))
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, that page you are looking for has driven away.'})
-})
+})//Should be last route in list
 
 
 /* ***********************
