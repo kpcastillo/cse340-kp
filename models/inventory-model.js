@@ -55,15 +55,17 @@ async function addClassification(classification_name) {
 /* ***************************
   * Add new inventory item
   * ************************** */
-async function addInventoryItem(classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color) {
+async function addInventoryItem(inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) {
   try {
     const sql = `INSERT INTO public.inventory 
-    (classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color) 
+    (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) 
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`
-    const values = [classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color]
-    return await pool.query(sql, values)
+    const values = [inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id]
+    const result = await pool.query(sql, values)
+    return result.rows[0]      
   } catch (error) {
-    return error.message
+    console.error("addInventoryItem error:", error) 
+    return null                
   }
 }
 module.exports = {getClassifications, getInventoryByClassificationId, getInventoryByItemId, addClassification, addInventoryItem};

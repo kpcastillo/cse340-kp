@@ -40,12 +40,7 @@ const validate = {}
   * Add Inventory Data Validation Rules
   * ********************************* */
   validate.inventoryRules = () => {
-    return [
-      body("classification_id")
-        .trim()
-        .escape()
-        .notEmpty()
-        .withMessage("Please select a classification."),  
+    return [ 
       body("inv_make")
         .trim()
         .escape()
@@ -84,13 +79,18 @@ const validate = {}
         .escape()
         .notEmpty()
         .withMessage("Please provide a color."),
+        body("classification_id")
+          .trim()
+          .escape()
+          .notEmpty()
+          .withMessage("Please select a classification.")
     ]
   }
 /* ******************************
  * Check data and return errors or continue to add inventory item
  * ***************************** */
  validate.checkInventoryData = async (req, res, next) => {
-    const { classification_id, inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_color } = req.body
+    const { inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_color, classification_id } = req.body
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -102,8 +102,6 @@ const validate = {}
           title: "Add Inventory",
           nav,
           errors,
-          classificationList,
-          classification_id,
           inv_make,
           inv_model,
           inv_year,
@@ -111,6 +109,8 @@ const validate = {}
           inv_price,
           inv_miles,
           inv_color,
+          classificationList,
+          classification_id,
         })
       return
     }

@@ -14,10 +14,6 @@
 <form class="forms" action="/inv/add-inventory" method="post">
 
   <span class="required">All fields are required</span>
-  <br />
-
-  <label for="classificationList">Classification:</label>
-  <span id="classification_id"><%- classificationList %></span>
 
   <br />
   <label for="inv_make">Make:</label>
@@ -54,6 +50,11 @@
     <br />
   <label for="inv_color">Color:</label>
   <input type="text" id="inv_color" name="inv_color" value="<%= locals.inv_color %>" required />
+
+  <br />
+
+  <label for="classificationList">Classification:</label>
+  <span id="classification_id"><%- classificationList %></span>
 
     <br />
   <button type="submit">Add Vehicle</button>
