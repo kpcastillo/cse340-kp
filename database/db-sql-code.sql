@@ -249,3 +249,13 @@ SET inv_description = REPLACE(inv_description, 'small interiors', 'huge interior
 UPDATE public.inventory
 SET inv_image = REPLACE(inv_image, '/images/', '/images/vehicles/'),
 	inv_thumbnail = REPLACE(inv_thumbnail, '/images/', '/images/vehicles/');
+
+--Change the account_type of the Employee account to "Employee".
+UPDATE public.accounts
+SET account_type = 'Employee'
+WHERE account_firstname = 'Happy';
+
+--Change the account_type of the Manager account to "Admin".
+UPDATE public.accounts
+SET account_type = 'Admin'
+WHERE account_firstname = 'Manager';

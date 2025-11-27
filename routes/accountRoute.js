@@ -27,6 +27,7 @@ router.post(
 )
 //New default route for accounts
 router.get("/", 
+  Utilities.checkLogin,
   Utilities.handleErrors(accountController.buildAccountManagement))
 
 module.exports = router;

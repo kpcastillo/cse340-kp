@@ -81,8 +81,14 @@ async function registerAccount(req, res) {
 async function accountLogin(req, res) {
   let nav = await utilities.getNav()
   const { account_email, account_password } = req.body
+  console.log("LOGIN body:", { account_email })
+
   const accountData = await accountModel.getAccountByEmail(account_email)
+  console.log("LOGIN accountData:", accountData)
+
   if (!accountData) {
+    console.log("LOGIN FAIL: no account for that email")
+
     req.flash("notice", "Please check your credentials and try again.")
     res.status(400).render("account/login", {
       title: "Login",
@@ -93,19 +99,19 @@ async function accountLogin(req, res) {
     return
   }
   try {
-    if (await bcrypt.compare(account_password, accountData.account_password)) {
-      delete accountData.account_password
-      const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
-      if(process.env.NODE_ENV === 'development') {
-        res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
-      } else {
-        res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
-      }
+    const match = await bcrypt.compare(
+      account_password,
+      accountData.account_password
+    )
+    console.log("LOGIN password match:", match, "type:", accountData.account_type)
+
+    if (match) {
+      // your JWT + redirect
       return res.redirect("/account/")
-    }
-    else {
+    } else {
+      console.log("LOGIN FAIL: password mismatch")
       req.flash("message notice", "Please check your credentials and try again.")
-      res.status(400).render("account/login", {
+      return res.status(400).render("account/login", {
         title: "Login",
         nav,
         errors: null,
@@ -113,7 +119,8 @@ async function accountLogin(req, res) {
       })
     }
   } catch (error) {
-    throw new Error('Access Forbidden')
+    console.error("LOGIN ERROR:", error)
+    throw new Error("Access Forbidden")
   }
 }
 /****************************************
