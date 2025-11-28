@@ -243,6 +243,23 @@ p, li {
         font-weight: bold;
     }
 }
+#inventoryDisplay {
+    margin-top: 20px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2em;
+    color: #003049;
+    & th {
+        border: 1px solid #780000;
+        padding: 10px;
+        background-color: #C1121F;
+        color: white;
+    }
+    & td {
+        border: 1px solid #780000;
+        padding: 10px;
+        text-align: center;
+    }
+}
 @media screen and (min-width: 800px) {
  body{
     background-image: url('/images/site/small_check.jpg');

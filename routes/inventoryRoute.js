@@ -39,8 +39,24 @@ router.post(
 //URL that works with the URL in the JavaScript file
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON));
 
+//Route to modify item in inventory management view
+router.get(
+  "/edit/:invId",
+  utilities.handleErrors(invController.buildEditInventory)
+);
+
+//route to process the edit inventory item
+//router.post(
+  //"/edit/:invId",
+  //invValidate.inventoryRules(),
+  //invValidate.checkInventoryData,
+  //utilities.handleErrors(invController.updateInventoryItem)
+//);
+
 //route to match the path that already exists in the inventory management view for the "Delete" link
 router.get("/delete/:invId", utilities.handleErrors(invController.buildDeleteInventory));
+
+
 
 //route to process the delete inventory item
 router.post(
