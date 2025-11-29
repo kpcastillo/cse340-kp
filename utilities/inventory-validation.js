@@ -151,4 +151,32 @@ const validate = {}
     next()
   }
 
+/* ******************************
+ * Check data and return errors or continue to delete inventory item
+ * ***************************** */
+ validate.checkDeleteData = async (req, res, next) => {
+    const { inv_id } = req.body
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      errors = errors.array()
+      let nav = await utilities.getNav()
+
+      const itemData = await require("../models/inventory-model").getInventoryByItemId(inv_id)
+      const itemName = itemData.inv_make + " " + itemData.inv_model
+
+        res.render("inventory/delete-confirm", {
+          title: "Delete " + itemName,
+          nav,
+          errors,
+          inv_id: itemData.inv_id,
+          inv_make: itemData.inv_make,
+          inv_model: itemData.inv_model,
+          inv_price: itemData.inv_price,
+          inv_year: itemData.inv_year,
+        })
+      return
+    }
+    next()
+  }
 module.exports = validate

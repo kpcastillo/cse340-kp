@@ -219,7 +219,9 @@ invCont.buildEditInventory = async function (req, res, next) {
     inv_color: itemData.inv_color,
     classification_id: itemData.classification_id,
     classificationList: classificationList,
+
   })
+
 }
 
 /* ***************************
@@ -299,14 +301,50 @@ invCont.updateInventoryItem = async function (req, res) {
  * ************************** */
 invCont.buildDeleteInventory = async function (req, res, next) {
   const inv_id = req.params.invId
-  const data = await invModel.getInventoryByItemId(inv_id)
   let nav = await utilities.getNav()
-  res.render("./inventory/delete-inventory", {
-    title: "Delete " + data.inv_make + " " + data.inv_model,
+  const itemData = await invModel.getInventoryByItemId(inv_id)
+  const itemName = itemData.inv_make + " " + itemData.inv_model
+
+  res.render("./inventory/delete-confirm", {
+    title: "Delete " + itemName,
     nav,
-    data,
-    errors: null
+    errors: null,
+    inv_make: itemData.inv_make,
+    inv_model: itemData.inv_model,
+    inv_price: itemData.inv_price,
+    inv_year: itemData.inv_year,
+    inv_id: itemData.inv_id,
   })
 }
+
+/* ***************************
+  * Process delete inventory
+  * ************************** */
+invCont.deleteInventoryItem = async function (req, res) {
+  const inv_id = req.body.inv_id
+  const delResult = await invModel.deleteInventoryItem(inv_id)
+  if (delResult) {
+    let nav = await utilities.getNav()
+    const classificationList =
+    await utilities.buildClassificationList()
+    req.flash("notice", "The inventory item was deleted.")
+    res.status(200).render("inventory/management", {
+      title: "Inventory Management",
+      nav,
+      errors: null,
+      classificationList ,
+    })
+  } else {
+    let nav = await utilities.getNav()
+    req.flash("notice", "Sorry, there was an error deleting the inventory item.")
+    res.status(501).render("inventory/delete-confirm", {
+      title: "Delete Inventory",
+      nav,
+      errors: null,
+      inv_id,
+    })
+  }
+}
+
 module.exports = invCont
 

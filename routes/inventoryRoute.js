@@ -58,14 +58,15 @@ router.post(
   utilities.handleErrors(invController.updateInventoryItem)
 );
 
-//route to match the path that already exists in the inventory management view for the "Delete" link
-router.get("/delete/:invId", utilities.handleErrors(invController.buildDeleteInventory));
-
+//route build the Delete view
+router.get("/delete/:invId", 
+  utilities.handleErrors(invController.buildDeleteInventory));
 
 
 //route to process the delete inventory item
 router.post(
-  "/delete/:invId",
+  "/delete-confirm/",
+  invValidate.checkDeleteData,
   utilities.handleErrors(invController.deleteInventoryItem)
 );
 
