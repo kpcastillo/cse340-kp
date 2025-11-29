@@ -11,7 +11,7 @@
     <% }) %>
   </ul>
 <% } %>
-<form class="forms" action="/inv/edit-inventory" method="post">
+<form class="forms" id="updateForm" action="/inv/edit-inventory" method="post">
 
   <span class="required">All fields are required</span>
 
@@ -22,10 +22,6 @@
   <br />
   <label for="inv_model">Model:</label>
   <input type="text" id="inv_model" name="inv_model" value="<%= locals.inv_model %>" required />
-
-    <br />
-  <label for="inv_year">Year:</label>
-  <input type="number" id="inv_year" name="inv_year" value="<%= locals.inv_year %>" pattern="^\d{4}$" required />
 
     <br />
   <label for="inv_description">Description:</label>
@@ -43,7 +39,11 @@
   <label for="inv_price">Price:</label>
   <input type="number" id="inv_price" name="inv_price" value="<%= locals.inv_price %>" pattern="^\d+(\.\d{1,2})?$" required />
 
-    <br />
+  <br />
+  <label for="inv_year">Year:</label>
+  <input type="number" id="inv_year" name="inv_year" value="<%= locals.inv_year %>" pattern="^\d{4}$" required />
+
+  <br />
   <label for="inv_miles">Miles:</label>
   <input type="number" id="inv_miles" name="inv_miles" value="<%= locals.inv_miles %>" pattern="^\d+$" required />
 
@@ -56,5 +56,13 @@
   <label for="classificationList">Classification:</label>
   <span id="classification_id"><%- classificationList %></span>
 
-    <br />
-  <button type="submit">Update Vehicle</button>
+  <br />
+  <button type="submit" disabled>Update Vehicle</button>
+
+  <input type="hidden" name="inv_id"
+  <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+  <% } %>>
+</form>
+<br />
+<script src="/js/inventory-update.js" type="module"></script>
+<script src="/js/inventory.js" type="module"></script>

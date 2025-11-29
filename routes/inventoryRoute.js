@@ -12,6 +12,11 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 //Route to build inventory item detail view
 router.get("/detail/:invId", utilities.handleErrors(invController.buildByItemId));
 
+//Universal route for /inv that redirects to inventory management view
+router.get("/", (req, res) => {
+  res.redirect("/inv/management");
+});
+
 //Route to build inventory management view
 router.get("/management", utilities.handleErrors(invController.buildManagementView));
 
@@ -46,12 +51,12 @@ router.get(
 );
 
 //route to process the edit inventory item
-//router.post(
-  //"/edit/:invId",
-  //invValidate.inventoryRules(),
-  //invValidate.checkInventoryData,
-  //utilities.handleErrors(invController.updateInventoryItem)
-//);
+router.post(
+  "/edit-inventory",
+  invValidate.inventoryRules(),
+  invValidate.checkUpdateData,
+  utilities.handleErrors(invController.updateInventoryItem)
+);
 
 //route to match the path that already exists in the inventory management view for the "Delete" link
 router.get("/delete/:invId", utilities.handleErrors(invController.buildDeleteInventory));
