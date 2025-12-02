@@ -151,5 +151,73 @@ Util.checkJWTToken = (req, res, next) => {
     req.flash("notice", "Please log in.")
     return res.redirect("/account/login")
   }
+}
+
+/* ****************************************
+  * Build the account management nav
+  * ************************************ */
+ Util.buildAccountNav = async function(accountType){
+  let accNav = '<ul>'
+  accNav += '<li><a href="/account/" title="Account Management">Account Management</a></li>'
+  if(accountType > 1){
+   accNav += '<li><a href="/inv/" title="Inventory Management">Inventory Management</a></li>'
+  }
+  accNav += '<li><a href="/account/logout" title="Log out">Log out</a></li>'
+  accNav += '</ul>'
+  return accNav
  }
+
+ /* ****************************************
+  * Check account type and authorize if admin
+  * ************************************ */
+ Util.checkAccountType = async function(req, res, next) {
+  try {
+    if (res.locals.loggedin && res.locals.accountData) {
+      const accountType = res.locals.accountData.account_type
+      if (accountType === "Employee" || accountType === "Admin") {
+        return next()
+      }
+    }
+    req.flash(
+      "notice",
+      "You must be logged in as an Employee or Admin to access that page."
+    )
+    return res.redirect("/account/login")
+
+  } catch (error) {
+    next(error)
+  }
+}
+
+ /* ****************************************
+  * Build Reviews Form
+  * ************************************ */
+ Util.buildReviewsForm = async function(invId){
+  let reviewForm = '<form action="/reviews/new" method="post" id="review-form">'
+  reviewForm += '<input type="hidden" name="inv_id" value="' + invId + '" />'
+  reviewForm += '<label for="review_text">Write your review:</label>'
+  reviewForm += '<textarea name="review_text" id="review_text" required></textarea>'
+  reviewForm += '<button type="submit">Submit Review</button>'
+  reviewForm += '</form>'
+  return reviewForm
+ }
+
+/* ****************************************
+  * Build Reviews Display
+  * ************************************ */
+ Util.buildReviewsDisplay = async function(data){
+  let reviewsDisplay = '<ul id="reviews-display">'
+  data.forEach(review => {
+    reviewsDisplay += '<li>'
+    reviewsDisplay += '<h3>' + review.account_firstname.charAt(0).toUpperCase() 
+    + review.account_firstname.slice(1) + ' ' + review.account_lastname.charAt(0).toUpperCase() 
+    + review.account_lastname.slice(1).charAt(0) + '.</h3>'
+    reviewsDisplay += '<p>' + review.review_text + '</p>'
+    reviewsDisplay += '<hr />'
+    reviewsDisplay += '</li>'
+  })
+  reviewsDisplay += '</ul>'
+  return reviewsDisplay
+ }
+
 module.exports = Util

@@ -30,4 +30,23 @@ router.get("/",
   Utilities.checkLogin,
   Utilities.handleErrors(accountController.buildAccountManagement))
 
+// Route to log user out
+router.get(
+  "/logout",
+  Utilities.handleErrors(accountController.accountLogout)
+)
+
+//Route for Update account information route
+router.get("/update-account/:account_id", 
+  Utilities.checkLogin,
+  Utilities.handleErrors(accountController.buildUpdateAccount))
+
+//Process update account information
+router.post(
+  "/update-account",
+  regValidate.updateAccountRules(),
+  regValidate.checkUpdateAccountData,
+  Utilities.handleErrors(accountController.updateAccountInfo)
+)
+
 module.exports = router;

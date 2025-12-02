@@ -1,0 +1,33 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+<%- messages() %>
+<% if (errors && errors.length) { %>
+  <ul class="notice">
+    <% errors.forEach(error => { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
+<form id="updateAccForm" class="forms" action="/account/update-account" method="post">
+    <label for="first_name" >First Name</label>
+    <input type="text" name="account_firstname" required value="<%= locals.account_firstname %>">
+    <br>
+    <label for="last_name">Last Name</label>
+    <input type="text" name="account_lastname" required value="<%= locals.account_lastname %>">
+    <br>
+    <label for="email">Email address</label>
+    <input type="email" name="account_email" required value="<%= locals.account_email %>">
+    <br>
+    <span class="psswd-req">Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
+    <label for="password">Password</label>
+    <input type="password" pattern="(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{12,}" name="account_password" required>
+    <br>
+    <button type="submit" id="register-button" disabled>Update</button>
+</form>
+<input type="hidden" name="account_id"
+<% if(locals.account_id) { %> value="<%= locals.account_id %>"
+<% } %>>
+<script src="/js/update-account.js"></script>
