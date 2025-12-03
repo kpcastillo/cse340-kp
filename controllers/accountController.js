@@ -151,7 +151,7 @@ async function buildUpdateAccount(req, res, next) {
   
   const accountData = await accountModel.getAccountById(account_id)
   const accountName= `${accountData.account_firstname} ${accountData.account_lastname}`
-  res.render("account/update-account/", {
+  res.render("account/update-account", {
     title: "Update Account" + accountName,
     nav,
     errors: null,
@@ -170,26 +170,28 @@ async function buildUpdateAccount(req, res, next) {
 async function updateAccountInfo(req, res, next) {
 
   const { account_firstname, account_lastname, account_email, account_id } = req.body
-
-  const updateResult = await accountModel.updateAccountInfo(
-    
+   console.log("updateAccountInfo body:", {
     account_firstname,
     account_lastname,
     account_email,
-    account_id
+    account_id,
+  })
+  const updateResult = await accountModel.updateAccountInfo(
+    account_firstname,
+    account_lastname,
+    account_email,
+    account_id,
   )
 
   if (updateResult) {
-    let nav = await utilities.getNav()
     req.flash(
       "notice",
       `Congratulations, your account has been updated ${account_firstname}.`
     )
-    res.status(201).redirect("/account/account-management")
+    return res.redirect("/account/")
   } else {
     let nav = await utilities.getNav()
     req.flash("notice", "Sorry, the update failed.")
-    const accountData = await accountModel.getAccountById(account_id)
     res.status(501).render("account/update-account", {
       title: "Update Account",
       nav,
@@ -197,11 +199,77 @@ async function updateAccountInfo(req, res, next) {
       account_firstname,
       account_lastname,
       account_email,
-      accountData,
       account_id
     })
   }
 }
 
+/* ****************************************
+ *  Build Password Update View
+ * *************************************** */
+async function buildPasswordUpdate(req, res, next) {
+  
+  const account_id = parseInt(req.params.account_id)
+  let nav = await utilities.getNav()
+  
+  const accountData = await accountModel.getAccountById(account_id)
+  const accountName= `${accountData.account_firstname} ${accountData.account_lastname}`
+  res.render("account/update-password", {
+    title: "Update Password " + accountName,
+    nav,
+    errors: null,
+    accountData,
+    account_id: accountData.account_id
+  })
+}
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, accountLogout, buildUpdateAccount, updateAccountInfo }
+/* ****************************************
+ *  Process Password Update
+ * *************************************** */
+async function updatePassword(req, res, next) {
+
+  const { account_password, account_id } = req.body
+   console.log("updatePassword body:", {
+    account_password,
+    account_id,
+  })
+  // Hash the password before storing
+  let hashedPassword
+  try {
+    // regular password and cost (salt is generated automatically)
+    hashedPassword = await bcrypt.hashSync(account_password, 10)
+  } catch (error) {
+    req.flash("notice", 'Sorry, there was an error processing the password update.')
+    res.status(500).render("account/update-password", {
+      title: "Update Password",
+      nav,
+      errors: null,
+      account_id
+    })
+  }
+
+  const updateResult = await accountModel.updatePassword(
+    hashedPassword,
+    account_id,
+  )
+
+  if (updateResult) {
+    req.flash(
+      "notice",
+      `Congratulations, your password has been updated. Please log in again.`
+    )
+    res.clearCookie("jwt")
+    return res.redirect("/account/login/")
+  } else {
+    let nav = await utilities.getNav()
+    req.flash("notice", "Sorry, the password update failed.")
+    res.status(501).render("account/update-password", {
+      title: "Update Password",
+      nav,
+      errors: null,
+      account_id
+    })
+  }
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, accountLogout, buildUpdateAccount, updateAccountInfo, buildPasswordUpdate, updatePassword }

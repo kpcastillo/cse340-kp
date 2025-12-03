@@ -21,13 +21,9 @@
     <label for="email">Email address</label>
     <input type="email" name="account_email" required value="<%= locals.account_email %>">
     <br>
-    <span class="psswd-req">Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
-    <label for="password">Password</label>
-    <input type="password" pattern="(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{12,}" name="account_password" required>
-    <br>
+ 
     <button type="submit" id="register-button" disabled>Update</button>
+  <input type="hidden" name="account_id" value="<%= locals.account_id %>">
 </form>
-<input type="hidden" name="account_id"
-<% if(locals.account_id) { %> value="<%= locals.account_id %>"
-<% } %>>
+
 <script src="/js/update-account.js"></script>
