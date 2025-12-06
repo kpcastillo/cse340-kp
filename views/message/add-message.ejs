@@ -1,0 +1,33 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect(404)
+} %>
+<%- messages() %>
+  <% if (errors) { %>
+    <ul class="notice">
+  <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+  <%  }) %>
+  </ul>
+<% } %>
+<form id="message-form" class="forms" action="/message/add-message" method="post">
+    <div>Please fill out the form below to send us a message.</div>
+    <p>All fields are required</p>
+    <label for="message_name">Name</label>
+    <input type="text" name="message_name" required value="<%= locals.message_name %>">
+    <br>
+    <label for="last_name">Last Name</label>
+    <input type="text" name="message_lastname" required value="<%= locals.message_lastname %>">
+    <br>
+    <label for="message_email">Email</label>
+    <input type="email" name="message_email" required value="<%= locals.message_email %>">
+    <br>
+    <label for="message_subject" >Subject</label>
+    <input type="text" name="message_subject" required value="<%= locals.message_subject %>">
+    <br>
+    <label for="message_body">Message</label>
+    <textarea name="message_body" required><%= locals.message_body %></textarea>
+    <br>
+    <button type="submit" id="message-button">Send Message</button>
+</form>

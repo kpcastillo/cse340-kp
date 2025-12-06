@@ -16,8 +16,10 @@ const utilities = require("./utilities/index")
 const session = require("express-session")
 const pool = require('./database/')
 const accountRoute = require("./routes/accountRoute")
+const messageRoute = require("./routes/messageRoute")
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
+
 
 /* ***********************
  * Middleware
@@ -69,6 +71,8 @@ app.use("/inv", utilities.handleErrors(inventoryRoute))
 app.get("/error", utilities.handleErrors(baseController.errorForAssignment))
 // Account routes
 app.use("/account", utilities.handleErrors(accountRoute))
+// Message route
+app.use("/message", utilities.handleErrors(messageRoute))
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, that page you are looking for has driven away.'})
