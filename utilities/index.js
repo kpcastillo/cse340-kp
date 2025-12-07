@@ -189,35 +189,41 @@ Util.checkJWTToken = (req, res, next) => {
   }
 }
 
- /* ****************************************
-  * Build Reviews Form
-  * ************************************ */
- Util.buildReviewsForm = async function(invId){
-  let reviewForm = '<form action="/reviews/new" method="post" id="review-form">'
-  reviewForm += '<input type="hidden" name="inv_id" value="' + invId + '" />'
-  reviewForm += '<label for="review_text">Write your review:</label>'
-  reviewForm += '<textarea name="review_text" id="review_text" required></textarea>'
-  reviewForm += '<button type="submit">Submit Review</button>'
-  reviewForm += '</form>'
-  return reviewForm
- }
+/* **************************************
+* Build the message view HTML
+* ************************************ */
+Util.buildMsgView = async function(msgData) {
+  let messageDisplay = '<table id="msgDisplay">'
+  messageDisplay += '<thread>'
+  messageDisplay += '<tr>'
+  messageDisplay += '<th>ID</th>'
+  messageDisplay += '<th>Date</th>'
+  messageDisplay += '<th>Name</th>'
+  messageDisplay += '<th>Email</th>'
+  messageDisplay += '<th>Subject</th>'
+  messageDisplay += '</tr>'
+  messageDisplay +=  '</thead>'
+  messageDisplay +=  '<tbody>'
 
-/* ****************************************
-  * Build Reviews Display
-  * ************************************ */
- Util.buildReviewsDisplay = async function(data){
-  let reviewsDisplay = '<ul id="reviews-display">'
-  data.forEach(review => {
-    reviewsDisplay += '<li>'
-    reviewsDisplay += '<h3>' + review.account_firstname.charAt(0).toUpperCase() 
-    + review.account_firstname.slice(1) + ' ' + review.account_lastname.charAt(0).toUpperCase() 
-    + review.account_lastname.slice(1).charAt(0) + '.</h3>'
-    reviewsDisplay += '<p>' + review.review_text + '</p>'
-    reviewsDisplay += '<hr />'
-    reviewsDisplay += '</li>'
-  })
-  reviewsDisplay += '</ul>'
-  return reviewsDisplay
- }
+  if(msgData.length > 0){
 
+    msgData.forEach(msg => {
+      messageDisplay += '<tr>'
+      messageDisplay += '<td>' + msg.message_firstname +'</td>'
+      messageDisplay +=  '<td>' + msg.message_lastname + '</td>'
+      messageDisplay +=  '<td>' + msg.message_email + '</td>'
+      messageDisplay +=  '<td>' + msg.message_subject + '</td>'
+      messageDisplay +=  '<td>' + msg.message_body + '</td>'
+      messageDisplay +=  '<td>' + msg.created_at.toLocaleString() + '</td>'
+      messageDisplay +=  '</tr>'
+    })
+    messageDisplay += '</tbody>'
+    messageDisplay += '</table>'
+  }else{
+    messageDisplay += '<h3 class="notice">No messages could be found.</p>'
+  }
+  return messageDisplay
+  
+
+}
 module.exports = Util

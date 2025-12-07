@@ -1,5 +1,5 @@
 const utilities = require(".")
-const { body, validationResults } = require("express-validator")
+const { body, validationResult } = require("express-validator")
 const messageModel = require("../models/message-model")
 const validate = {}
 
@@ -21,7 +21,7 @@ validate.messageFormRules = () => {
             .trim()
             .escape()
             .notEmpty()
-            .isLength({ min: 2 })
+            .isLength({ min: 1 })
             .withMessage("Please provide a last name."), // on error this message is sent.
          
          // valid email is required and cannot already exist in the DB
@@ -41,7 +41,7 @@ validate.messageFormRules = () => {
 validate.checkMessageData = async ( req, res, next ) => {
     const { message_firstname, message_lastname, message_email} = req.body
     let errors = []
-    errors = validationResults(req)
+    errors = validationResult(req)
     if (!errors.isEmpty()) {
         let nav = await utilities.getNav()
         res.render("message/add-message", {
