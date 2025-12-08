@@ -14,10 +14,10 @@
 <form id="message-form" class="forms" action="/message/add-message" method="post">
     <div>Please fill out the form below to send us a message.</div>
     <p>All fields are required</p>
-    <label for="message_name">First Name</label>
-    <input type="text" name="message_name" required value="<%= locals.message_name %>">
+    <label for="message_firstname">First Name</label>
+    <input type="text" name="message_firstname" required value="<%= locals.message_firstname %>">
     <br>
-    <label for="last_name">Last Name</label>
+    <label for="message_lastname">Last Name</label>
     <input type="text" name="message_lastname" required value="<%= locals.message_lastname %>">
     <br>
     <label for="message_email">Email</label>
@@ -27,7 +27,7 @@
     <input type="text" name="message_subject" required value="<%= locals.message_subject %>">
     <br>
     <label for="message_body">Message</label>
-    <textarea name="message_body" required><%= locals.message_body %></textarea>
+    <textarea name="message_body" required value="<%= locals.message_body %>"></textarea>
     <br>
     <button type="submit" id="message-button">Send Message</button>
 </form>

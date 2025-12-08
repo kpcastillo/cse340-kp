@@ -35,15 +35,15 @@ async function handleMessageForm(req, res, next) {
             "notice",
             "Congratulations your message was sent successfully."
         )
-        res.status(201).render("/", {
-        title: "Home",
+        res.status(201).render("message/add-message", {
+        title: "Contact Us",
         nav,
         errors: null,
     })
  } else {
     req.flash("notice", "Sorry, the registration failed.")
-    res.status(501).render("/", {
-        title:"Home",
+    res.status(501).render("message/add-message", {
+        title:"Contact Us",
         nav,
         errors: null
     })
@@ -61,7 +61,6 @@ async function buildMessagesManagementPage( req, res, next) {
             title: "Message Management",
             nav,
             msgView,
-            messageDisplay,
             errors: null
         })
 }

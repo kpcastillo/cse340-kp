@@ -9,7 +9,7 @@ const validate = {}
 validate.messageFormRules = () => {
     return [
        // firstname is required and must be string
-        body("account_firstname")
+        body("message_firstname")
             .trim()
             .escape()
             .notEmpty()
@@ -17,7 +17,7 @@ validate.messageFormRules = () => {
             .withMessage("Please provide a first name."), // on error this message is sent.
          
          // lastname is required and must be string
-        body("account_lastname")
+        body("message_lastname")
             .trim()
             .escape()
             .notEmpty()
@@ -25,7 +25,7 @@ validate.messageFormRules = () => {
             .withMessage("Please provide a last name."), // on error this message is sent.
          
          // valid email is required and cannot already exist in the DB
-        body("account_email")
+        body("message_email")
             .trim()
             .escape()
             .notEmpty()

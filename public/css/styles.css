@@ -260,6 +260,40 @@ p, li {
         text-align: center;
     }
 }
+#msgDisplay{
+    margin-top: 20px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2em;
+    color: #003049;
+    & th {
+        border: 1px solid #780000;
+        padding: 10px;
+        background-color: #C1121F;
+        color: white;
+    }
+    & td {
+        border: 1px solid #780000;
+        padding: 10px;
+        text-align: center;
+    }
+}
+.contact-link {
+  position: fixed;
+  bottom: 2rem;
+  right: 1.8rem;
+  width: 11rem;
+  height: 11rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  & img {
+    max-width: 100%;
+    height: auto;
+    }
+}
+
+
 @media screen and (min-width: 800px) {
  body{
     background-image: url('/images/site/small_check.jpg');

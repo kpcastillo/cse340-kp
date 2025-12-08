@@ -5,7 +5,7 @@ const pool = require('../database/')
 * *************************************** */
 async function handleMessageForm(message_firstname, message_lastname, message_email, message_subject, message_body) {
     try {
-        const sql = 'INSERT INTO messages (message_firstname, message_lastname, message_email, message_subject, message_body, client_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *'
+        const sql = 'INSERT INTO public.message_request (message_firstname, message_lastname, message_email, message_subject, message_body, client_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *'
         const values = [message_firstname, message_lastname, message_email, message_subject, message_body]
         return await pool.query(sql, values)
     } catch (error) {
@@ -19,11 +19,12 @@ async function handleMessageForm(message_firstname, message_lastname, message_em
 * *************************************** */
 async function getMessages() {
     try {
-        const sql = 'SELECT * FROM public.messages ORDER BY message_id DESC'
-        return await pool.query(sql)
+        const sql = 'SELECT * FROM public.message_request ORDER BY message_id DESC'
+        const data = await pool.query(sql)
+        return data.rows
     } catch (error) {
         console.error('Error retrieving messages from the db:', error)
-        return error.message
+        throw error
     }
 }
 

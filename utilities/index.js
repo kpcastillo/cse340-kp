@@ -189,12 +189,12 @@ Util.checkJWTToken = (req, res, next) => {
   }
 }
 
-/* **************************************
-* Build the message view HTML
-* ************************************ */
-Util.buildMsgView = async function(msgData) {
-  let messageDisplay = '<table id="msgDisplay">'
-  messageDisplay += '<thread>'
+/* ***************************
+ * Build the message view HTML
+ *************************** */
+Util.buildMsgView = function (msgData = []) {
+  let messageDisplay = '<table id="msgDisplay" class="tableDisplay">'
+  messageDisplay += '<thead>'
   messageDisplay += '<tr>'
   messageDisplay += '<th>ID</th>'
   messageDisplay += '<th>Date</th>'
@@ -202,28 +202,31 @@ Util.buildMsgView = async function(msgData) {
   messageDisplay += '<th>Email</th>'
   messageDisplay += '<th>Subject</th>'
   messageDisplay += '</tr>'
-  messageDisplay +=  '</thead>'
-  messageDisplay +=  '<tbody>'
+  messageDisplay += '</thead>'
+  messageDisplay += '<tbody>'
 
-  if(msgData.length > 0){
-
-    msgData.forEach(msg => {
+  if (msgData.length > 0) {
+    msgData.forEach((msg) => {
       messageDisplay += '<tr>'
-      messageDisplay += '<td>' + msg.message_firstname +'</td>'
-      messageDisplay +=  '<td>' + msg.message_lastname + '</td>'
-      messageDisplay +=  '<td>' + msg.message_email + '</td>'
-      messageDisplay +=  '<td>' + msg.message_subject + '</td>'
-      messageDisplay +=  '<td>' + msg.message_body + '</td>'
-      messageDisplay +=  '<td>' + msg.created_at.toLocaleString() + '</td>'
-      messageDisplay +=  '</tr>'
+      messageDisplay += `<td>${msg.message_id}</td>`
+      messageDisplay += `<td>${msg.created_at.toLocaleString()}</td>`
+      messageDisplay += `<td>${msg.message_firstname} ${msg.message_lastname}</td>`
+      messageDisplay += `<td>${msg.message_email}</td>`
+      messageDisplay += `<td>${msg.message_subject}</td>`
+      messageDisplay += '</tr>'
     })
-    messageDisplay += '</tbody>'
-    messageDisplay += '</table>'
-  }else{
-    messageDisplay += '<h3 class="notice">No messages could be found.</p>'
+  } else {
+    messageDisplay += `
+      <tr>
+        <td colspan="5" class="notice">No messages could be found.</td>
+      </tr>
+    `
   }
-  return messageDisplay
-  
 
+  messageDisplay += '</tbody>'
+  messageDisplay += '</table>'
+
+  return messageDisplay
 }
+
 module.exports = Util
