@@ -201,6 +201,7 @@ Util.buildMsgView = function (msgData = []) {
   messageDisplay += '<th>Name</th>'
   messageDisplay += '<th>Email</th>'
   messageDisplay += '<th>Subject</th>'
+  messageDisplay += '<th>Message</th>'
   messageDisplay += '</tr>'
   messageDisplay += '</thead>'
   messageDisplay += '<tbody>'
@@ -209,10 +210,11 @@ Util.buildMsgView = function (msgData = []) {
     msgData.forEach((msg) => {
       messageDisplay += '<tr>'
       messageDisplay += `<td>${msg.message_id}</td>`
-      messageDisplay += `<td>${msg.created_at.toLocaleString()}</td>`
+      messageDisplay += `<td>${new Date(msg.message_created_at).toLocaleString()}</td>`
       messageDisplay += `<td>${msg.message_firstname} ${msg.message_lastname}</td>`
       messageDisplay += `<td>${msg.message_email}</td>`
       messageDisplay += `<td>${msg.message_subject}</td>`
+      messageDisplay += `<td>${msg.message_body}</td>`
       messageDisplay += '</tr>'
     })
   } else {
