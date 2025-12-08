@@ -21,7 +21,6 @@ async function handleMessageForm(
         const result = await pool.query(sql, values)
         return result.rows[0]
     } catch (error) {
-        console.error('Error adding message:', error)
         return error.message
     }
 }
